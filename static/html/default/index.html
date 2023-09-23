@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户登陆</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2em;
+            margin-top: 10%;
+        }
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <h1>登陆天擎剑</h1>
+    <form action="/login" method="post" enctype="multipart/form-data" >
+        <label for="username">用户名</label>
+        <input type="text" id="uname" name="uname" placeholder="请输入用户名" required>
+        <label for="password">密码</label>
+        <input type="password" id="upwd" name="upwd" placeholder="请输入密码" required>
+        <button type="submit">登陆</button>
+    </form>
+    <p>没有账户？<a href="/registerinfo">立即注册</a></p>
+    <p>忘记密码？<a href="/forgot-password">点此找回</a></p>
+</body>
+</html>

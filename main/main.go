@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"web/db"
 	"web/route"
@@ -36,24 +37,20 @@ func main() {
 		log.Panicf("load tika error: %s", err.Error())
 		return
 	}
-	// Step3. Load Mysql
-	err = db.ClientToMySQL(globalCfg)
-	if err != nil {
-		log.Panicf("load mysql error: %s", err.Error())
-		return
-	}
-	// Step4. Load Redis
-	err = db.ClientToRedis(globalCfg)
-	if err != nil {
-		log.Panicf("load redis error: %s", err.Error())
-		return
-	}
+	// // Step3. Load Mysql
+	// err = db.ClientToMySQL(globalCfg)
+	// if err != nil {
+	// 	log.Panicf("load mysql error: %s", err.Error())
+	// 	return
+	// }
+	// // Step4. Load Redis
+	// err = db.ClientToRedis(globalCfg)
+	// if err != nil {
+	// 	log.Panicf("load redis error: %s", err.Error())
+	// 	return
+	// }
 	// Step5. Load Route
 	engine := route.LoadRoute()
 	// Step6. Build listen
-	go func() {
-		engine.Run(globalCfg.GetString("service.port"))
-
-	}()
-
+	engine.Run(fmt.Sprintf(":%s", globalCfg.GetString("service.port")))
 }

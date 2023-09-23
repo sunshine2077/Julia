@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Chat</title>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .chat-container {
+            width: 400px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #fff;
+        }
+
+        .chat-message {
+            margin-bottom: 10px;
+        }
+
+        .chat-message .sender {
+            font-weight: bold;
+        }
+
+        .chat-message .time {
+            font-size: 0.8em;
+            color: #999;
+        }
+
+        .chat-input {
+            margin-top: 10px;
+        }
+
+        .chat-input input[type="text"] {
+            width: 80%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .chat-input input[type="submit"] {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div id="chat-messages"></div>
+        <form id="chat-form">
+            <div class="chat-input">
+                <input type="text" id="message-input" placeholder="输入消息..." autocomplete="off">
+                <input type="submit" value="发送">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        var chatForm = document.getElementById("chat-form");
+        var messageInput = document.getElementById("message-input");
+        var chatMessages = document.getElementById("chat-messages");
+
+        chatForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            var message = messageInput.value;
+            if (message.trim() !== "") {
+                var sender = "You";
+                var time = new Date().toLocaleTimeString();
+                var chatMessage = '<div class="chat-message"><span class="sender">' + sender + '</span>: ' + message + '<span class="time">' + time + '</span></div>';
+                chatMessages.innerHTML += chatMessage;
+                messageInput.value = "";
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>

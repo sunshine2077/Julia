@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>注册页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-group .captcha {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group .captcha input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-group .captcha img {
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .form-group .captcha-refresh {
+            margin-left: 10px;
+            padding: 8px;
+            background-color: #eee;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-group .captcha-refresh:hover {
+            background-color: #ddd;
+        }
+
+        .form-group .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color:  #007bff;
+            color: #fff;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-group .btn:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>注册</h2>
+        <form action="/register" method="post" enctype="multipart/form-data" >
+            <div class="form-group">
+                <label for="username">用户名[5到10位]:</label>
+                <input type="text" id="uname" name="uname" required>
+            </div>
+            <div class="form-group">
+                <label for="password">密码[5到20位]:</label>
+                <input type="password" id="upwd" name="upwd" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">性别</label>
+                <select id="gender" name="gender" required>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                    <option value="妖">妖</option>
+                    <option value="偏男">偏男</option>
+                    <option value="偏女">偏女</option>
+                    <option value="未知">未知</option>
+                    <option value="其他">其他</option>
+                    <option value="保密">保密</option>
+                </select>
+            </div>
+                <div class="form-group">
+                <label for="introduction">自我介绍:</label>
+                <textarea id="desc" name="desc"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="phone">电话号码:</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+                <label for="email">邮箱:</label>
+                <input type="email" id="mail" name="mail" required>
+            </div>
+            <div class="form-group">
+                <label for="captcha">验证码:</label>
+                <div class="captcha">
+                    <input type="text" id="captcha" name="captcha" required>
+                    <img src="captcha_image.jpg" alt="验证码">
+                    <div class="captcha-refresh">刷新</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="注册" class="btn" >
+            </div>
+        </form>
+    </div>
+</body> 

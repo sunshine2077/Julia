@@ -8,9 +8,13 @@ import (
 
 func LoadRoute() *gin.Engine {
 	router := gin.New()
-	rg := router.Group("/resource")
+	resource := router.Group("/resource")
 	{
-		rg.POST("/upload", api.UploadSingle)
+		resource.POST("/upload", api.UploadSingle)
+	}
+	probe := router.Group("/probe")
+	{
+		probe.GET("/liveness", api.Liveness)
 	}
 	return router
 }
