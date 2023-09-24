@@ -1,8 +1,10 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
+	"time"
 	"web/db"
 	"web/route"
 
@@ -25,6 +27,8 @@ func InitCfg(filename string) (*viper.Viper, error) {
 }
 
 func main() {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	defer cancel()
 	// Step1. Load the config file
 	globalCfg, err := InitCfg("./conf.yml")
 	if err != nil {
@@ -32,9 +36,15 @@ func main() {
 		return
 	}
 	// Step2. Load Tika
-	err = db.ClientToTika(globalCfg)
+	err = db.ClientToTika(ctx, globalCfg)
 	if err != nil {
 		log.Panicf("load tika error: %s", err.Error())
+		return
+	}
+	// Step3. Load Qdrant
+	err = db.ClientToQdrant(ctx, globalCfg)
+	if err != nil {
+		log.Panicf("load qdrant error: %s", err.Error())
 		return
 	}
 	// // Step3. Load Mysql

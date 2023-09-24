@@ -12,14 +12,17 @@ var RedisClient *redis.Client
 
 // Connect to redis
 func ClientToRedis(v *viper.Viper) error {
-	rdb := redis.NewClient(&redis.Options{
-		Addr:    fmt.Sprintf("%s:%s", (*v).GetString("redis1.host"), (*v).GetString("redis1.port")),
+	RedisClient = redis.NewClient(&redis.Options{
+		Addr:    fmt.Sprintf("%s:%d", (*v).GetString("redis1.host"), (*v).GetInt("redis1.port")),
 		DB:      (*v).GetInt("redis1.db"),
 		Network: (*v).GetString("redis1.network"),
 		// 最大连接数：4倍CPU核心数
 		PoolSize:     15,
 		MinIdleConns: 10,
 	})
-	RedisClient = rdb
+	_, err := RedisClient.Ping().Result()
+	if err != nil {
+		return err
+	}
 	return nil
 }

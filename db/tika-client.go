@@ -1,6 +1,7 @@
 package db
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/google/go-tika/tika"
@@ -9,8 +10,12 @@ import (
 
 var TikaClient *tika.Client
 
-func ClientToTika(v *viper.Viper) error {
+func ClientToTika(ctx context.Context, v *viper.Viper) error {
 	TikaClient = tika.NewClient(nil,
 		fmt.Sprintf("http://%s:%s/", (*v).GetString("tika.host"), (*v).GetString("tika.port")))
+	_, err := TikaClient.Version(ctx)
+	if err != nil {
+		return err
+	}
 	return nil
 }

@@ -1,2 +1,1 @@
-2023/09/23 14:42:33 ===初始化配置===
-2023/09/23 14:42:33 严重错误！加载Redis失败！详细信息：open /root/src/config/redis.yml: no such file or directory
+nohup: failed to run command '/root/src/test': No such file or directory

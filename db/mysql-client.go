@@ -1,6 +1,7 @@
 package db
 
 import (
+	"context"
 	"fmt"
 	"web/model"
 
@@ -13,19 +14,25 @@ import (
 var MysqlClient *gorm.DB
 
 // Client to MySQL
-func ClientToMySQL(v *viper.Viper) error {
-	db, err := gorm.Open("mysql",
-		fmt.Sprintf("%s:%s@(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
+func ClientToMySQL(ctx context.Context, v *viper.Viper) error {
+	var err error
+	MysqlClient, err := gorm.Open("mysql",
+		fmt.Sprintf("%s:%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
 			v.GetString("mysql1.user"),
 			v.GetString("mysql1.pwd"),
 			v.GetString("mysql1.ip"),
-			v.GetString("mysql1.port"),
+			v.GetInt("mysql1.port"),
 			v.GetString("mysql1.dbname")))
 	if err != nil {
 		return err
 	}
-	MysqlClient = db
-	//  Auto Migrate
+	MysqlClient.DB().SetMaxOpenConns(v.GetInt("mysql1.maxOpenConns"))
+	MysqlClient.DB().SetMaxIdleConns(v.GetInt("mysql1.maxIdleConns"))
+	err = MysqlClient.DB().PingContext(ctx)
+	if err != nil {
+		return err
+	}
+	// Auto Migrate
 	MysqlClient.Debug().AutoMigrate(&model.User{})
 	return nil
 }

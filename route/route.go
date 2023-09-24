@@ -8,6 +8,7 @@ import (
 
 func LoadRoute() *gin.Engine {
 	router := gin.New()
+	router.Use(tokenCheck)
 	resource := router.Group("/resource")
 	{
 		resource.POST("/upload", api.UploadSingle)
